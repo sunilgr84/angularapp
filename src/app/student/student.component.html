@@ -1,0 +1,66 @@
+<form class="form-inline">
+  <div class="form-row align-items-center">
+    <div class="col-auto" [formGroup]="formGroup">
+      <label class="sr-only" for="inlineFormInput">Page Size</label>
+      <select class="form-control" id="catalog" formControlName="itemCtrl" [(ngModel)]="selectedValue" name="catalogselector">    
+        <option *ngFor="let suit of oppoSuits" [value]="suit.value">{{suit.viewValue}}</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="button" class="btn btn-primary mb-2" (click)="FilldataOndrdPageSize()">Get Data</button>
+    </div>
+  </div>
+  
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Student Code</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of pagedItems">                  
+  <td>{{item.StudentCode}}</td>
+  <td>{{item.Name}}</td>      
+    </tr>
+  </tbody>
+</table> 
+   <!-- pager -->
+   <nav aria-label="Page navigation example">
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+       
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === 1}">
+            <a class="page-link" aria-label="Previous" (click)="setPage(pager.currentPage - 1)">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li class="page-item" *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a class="page-link" (click)="setPage(page)">{{page}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a class="page-link" aria-label="Next" (click)="setPage(pager.currentPage + 1)">
+              <span aria-hidden="true">&raquo;</span>
+               <span class="sr-only">Next</span>
+            </a>
+        </li>
+       
+    </ul>
+  </nav>
+</form>
+         
+           
+          <div style="display: none;" >
+          <select id="drdpagesize"   class="form-control" style="width: 50px;" (change)="PageSizeEvent($event)">
+                
+            <option value="10">10</option>
+            <option value="20" >20</option>
+            <option value="30" >30</option>
+            <option value="100" >100</option>
+            <option value="500">500</option>
+          </select></div>
+         
+         
+  
+
+  

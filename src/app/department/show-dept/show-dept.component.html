@@ -1,0 +1,47 @@
+<mat-form-field class="example-full-width" appearance="fill">
+ 
+  <input matInput placeholder="Filter " (keyup)="applyFilter($any($event.target).value)" >
+</mat-form-field>
+<div class="example-container mat-elevation-z8">
+  <mat-table [dataSource]="listData" matSort>
+
+    
+    <ng-container matColumnDef="SrNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> SrNo </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index;"> {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="DepartmentName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.DepartmentName}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="DepartmentCode">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Department Code </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.DepartmentCode}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Actions">
+      <mat-header-cell *matHeaderCellDef > Action </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="onEdit(row)" >
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn" (click)="onDelete(row.ID)"  >
+            <mat-icon aria-label="Delete">delete</mat-icon>
+          </button>
+      </mat-cell>
+        
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">      
+    </mat-row>
+  </mat-table>
+  
+  <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+
+</div>
+<button class="mt-2" mat-raised-button (click)="addDept()" color=primary  >
+Add Department
+</button>
+
+     

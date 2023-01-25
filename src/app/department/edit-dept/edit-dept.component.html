@@ -1,0 +1,38 @@
+
+    <div class="d-flex justify-content-between m-3" >
+        <h4 mat-dialog-title>Edit Department</h4>
+         <!-- <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>-->
+          <button mat-button (click)="OndiaClose()" >
+           <mat-icon>close</mat-icon>
+          </button>
+        
+        </div>
+          <div  style="overflow:auto;height:450px;">
+            <form #myform = "ngForm" (ngSubmit) = "onSubmit(myform)" autocomplete="off" >
+                <div class="m-3 input-group" >
+               <div class="input-group-prepend" >
+                    <span class="input-group-text" style="width: 160px;" >Department Code :</span>
+                </div>
+            
+              <input type = "text"   name="DepartmentCode"  
+              #DepartmentCode="ngModel" [(ngModel)]="service.formdata.DepartmentCode" >  
+              
+                <div class="input-group-prepend" >
+                    <span class="input-group-text" style="width: 160px;" >Department Name :</span>
+                </div>
+            
+              <input type = "text" minlength="2"  name="DepartmentName" ngModel required  
+              #DepartmentName="ngModel" [(ngModel)]="service.formdata.DepartmentName" >   
+              
+            </div>
+              <div class="text-left text-danger" 
+                  *ngIf="DepartmentName.invalid && DepartmentName.touched">
+                  Enter Department Name
+              </div>
+             <button class="m-3" mat-raised-button  color="primary" type="submit" [disabled]="myform.invalid" >
+                Update Department
+             </button>
+            </form>
+          </div>

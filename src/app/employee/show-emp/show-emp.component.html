@@ -1,0 +1,53 @@
+<mat-form-field class="example-full-width" appearance="fill">
+ 
+    <input matInput placeholder="Filter " (keyup)="applyFilter($any($event.target).value)" >
+  </mat-form-field>
+  <div class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>  
+      
+      <ng-container matColumnDef="SrNo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> SrNo </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;"> {{ ((paginatorRef.pageIndex-1) * paginatorRef.pageSize) + (i ) }} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="StudentCode">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Student Code </mat-header-cell>
+        
+        <mat-cell *matCellDef="let element"><table><tr><td><img style="width:50px;height:40px;" src="{{EmpPic}}" ></td><td>
+        
+         <a  [routerLink]="['/profile',element.StudentID,element.Name]" >{{element.StudentCode}}   </a>
+         
+        </td></tr></table>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="Name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Name}} </mat-cell>
+      </ng-container>      
+      <ng-container matColumnDef="Actions">
+        <mat-header-cell *matHeaderCellDef > Action </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="onEdit(row)" >
+            <mat-icon aria-label="Edit">edit</mat-icon>
+          </button>
+            <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn" (click)="onDelete(row.ID)"  >
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+        </mat-cell>
+          
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">      
+      </mat-row>
+    </mat-table>
+    
+    <mat-paginator #paginatorRef  [pageSizeOptions]="[10, 20,30,50, 100]" [pageSize]="pageSize"
+     (page)="pageChanged($event)" [pageIndex]="currentPage" [length]="resultsLength" aria-label="Select page">
+    </mat-paginator>  
+  
+  </div>
+  <button class="mt-2" mat-raised-button (click)="addEmp()" color=primary  >
+  Add Employee
+  </button>
+  
+       
